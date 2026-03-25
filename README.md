@@ -111,3 +111,10 @@ Durante esta fase se aprendió:
 * Manejo de estado global en aplicaciones web
 
 ---
+
+## Semana 3
+
+- Integración de TailwindCSS en Next.js
+- Renderizado dinámico de hábitos desde Redux
+- Barra de progreso (estática)
+- Botón "Done" (sin funcionalidad aún)
