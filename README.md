@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Habit Tracker Frontend
 
-## Getting Started
+Este proyecto corresponde a la segunda fase del desarrollo de una aplicación web para el control de hábitos.
+El frontend fue desarrollado utilizando Next.js y se conecta a un backend en Express con base de datos MongoDB.
 
-First, run the development server:
+---
+
+## Objetivo
+
+El objetivo de esta fase es mostrar los hábitos almacenados en la base de datos mediante una interfaz web, consumiendo la API del backend y utilizando Redux para el manejo del estado global.
+
+---
+
+## Tecnologías utilizadas
+
+* Next.js
+* React
+* Redux Toolkit
+* React Redux
+* JavaScript / TypeScript
+
+---
+
+## Instalación
+
+Para ejecutar el proyecto de forma local:
+
+```bash
+npm install
+```
+
+---
+
+## Ejecución
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Luego abrir en el navegador:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```plaintext
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Conexión con el backend
 
-To learn more about Next.js, take a look at the following resources:
+El frontend realiza una petición GET al siguiente endpoint:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```plaintext
+http://localhost:5000/api/habits
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Es importante que el backend esté en ejecución para poder visualizar los datos correctamente.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Funcionamiento
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Al cargar la página, se realiza una petición al backend utilizando `fetch`.
+2. El backend obtiene los datos desde MongoDB.
+3. Los hábitos son enviados al frontend en formato JSON.
+4. Redux almacena los hábitos en un estado global.
+5. Finalmente, los hábitos se renderizan en pantalla.
+
+---
+
+## Estructura del proyecto
+
+```plaintext
+app/
+  page.tsx        → Página principal (vista de hábitos)
+  layout.tsx      → Layout general de la aplicación
+
+redux/
+  store.ts        → Configuración del store global
+  habitsSlice.ts  → Slice para manejo de hábitos
+  Provider.tsx    → Conexión de Redux con la aplicación
+```
+
+---
+
+## Notas importantes
+
+* Este proyecto utiliza Redux para manejar el estado global de los hábitos.
+* La arquitectura separa frontend y backend, comunicándose mediante API.
+* Es necesario tener el backend corriendo para que la aplicación funcione correctamente.
+
+---
+
+## Estado actual del proyecto
+
+✔️ Visualización de hábitos
+✔️ Consumo de API (GET)
+✔️ Integración de Redux
+✔️ Conexión con backend
+
+---
+
+## Aprendizajes
+
+Durante esta fase se aprendió:
+
+* Como Next.js maneja server Vs Client Components (error al usar useclient)
+* Cómo consumir APIs desde el frontend
+* Uso de `fetch` para obtener datos
+* Implementación de Redux en Next.js
+* Diferencia entre Server y Client Components en Next.js
+* Manejo de estado global en aplicaciones web
+
+---
