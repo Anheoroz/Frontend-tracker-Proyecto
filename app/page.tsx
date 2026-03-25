@@ -1,45 +1,35 @@
-
 "use client";
-import { useEffect, useState } from "react";
 
-interface Habit {
-  _id: string;
-  title: string;
-  completed: boolean;
-}
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setHabits } from "../redux/habitsSlice";
 
 export default function Home() {
-  const [habits, setHabits] = useState<Habit[]>([]);
+  const dispatch = useDispatch();
+  const habits = useSelector((state: any) => state.habits.habits);
 
   useEffect(() => {
     const fetchHabits = async () => {
-      try {
-        const res = await fetch("http://localhost:5000/api/habits");
-        const data = await res.json();
-        setHabits(data);
-      } catch (error) {
-        console.error("Error al obtener hábitos:", error);
-      }
+      const res = await fetch("http://localhost:5000/api/habits");
+      const data = await res.json();
+      dispatch(setHabits(data));
     };
 
     fetchHabits();
-  }, []);
+  }, [dispatch]);
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div>
       <h1>Mis hábitos</h1>
 
       {habits.length === 0 ? (
         <p>No hay hábitos aún</p>
       ) : (
-        habits.map((habit) => (
-          <div key={habit._id}>
-            {habit.title}
-          </div>
+        habits.map((habit: any) => (
+          <div key={habit._id}>{habit.title}</div>
         ))
       )}
     </div>
   );
 }
-
 // este es un comentario para ver el commit inicial
