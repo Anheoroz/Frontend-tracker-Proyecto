@@ -118,3 +118,93 @@ Durante esta fase se aprendió:
 - Renderizado dinámico de hábitos desde Redux
 - Barra de progreso (estática)
 - Botón "Done" (sin funcionalidad aún)
+
+# Frontend - Semana 4 (Habit Tracker)
+
+Este módulo implementa la interfaz de usuario para la gestión de hábitos y visualización del progreso.
+
+---
+
+# Funcionalidades implementadas
+
+## 🔹 Visualización de hábitos
+
+* Lista dinámica obtenida desde el backend
+* Renderizado con React y Redux
+
+---
+
+## Botón "Done"
+
+Permite marcar un hábito como completado:
+
+```js
+PUT /api/habits/:id/done
+```
+
+### Funcionalidad:
+
+* Envía petición al backend
+* Actualiza el estado global (Redux)
+* Refresca la lista de hábitos
+
+---
+
+## Barra de progreso dinámica
+
+Calcula el progreso total basado en las rachas:
+
+```js
+progreso = suma(streaks) / (habits.length * MAX_STREAK)
+```
+
+### Características:
+
+* Actualización en tiempo real
+* Progreso basado en 66 días (Atomic Habits)
+* Límite por hábito usando `Math.min`
+
+---
+
+## Interfaz
+
+* Diseño en modo oscuro
+* Componentes estilizados con Tailwind
+* Layout centrado y limpio
+
+---
+
+# Tecnologías utilizadas
+
+* Next.js
+* React
+* Redux
+* Tailwind CSS
+
+---
+
+# Estructura relevante
+
+```id="front123"
+app/
+  page.tsx
+
+redux/
+  habitsSlice.js
+```
+
+---
+
+# Objetivo cumplido
+
+✔️ Integración con backend
+✔️ Botón funcional para marcar hábitos
+✔️ Actualización dinámica del estado
+✔️ Barra de progreso basada en rachas
+
+---
+
+# Nota
+
+El frontend refleja en tiempo real el estado de los hábitos, permitiendo una interacción directa con la lógica implementada en el backend.
+
