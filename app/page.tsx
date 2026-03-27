@@ -8,11 +8,38 @@ export default function Home() {
   const dispatch = useDispatch();
   const habits = useSelector((state: any) => state.habits.habits);
 
+ useEffect(() => {
+  const checkAuth = async () => {
+    const res = await fetch("http://localhost:5000/api/habits", {
+      credentials: "include",
+    });
+
+    if (!res.ok) {
+      window.location.href = "/login";
+      return;
+    }   
+
+    const data = await res.json();
+
+    if (Array.isArray(data)) {
+      dispatch(setHabits(data));
+    }
+  };
+
+  checkAuth();
+}, []);
+
   const obtenerHabitos = async () => {
-  const res = await fetch("http://localhost:5000/api/habits");
-  credentials: "include" 
+  const res = await fetch("http://localhost:5000/api/habits", {
+  credentials: "include",
+  });
+ 
   const data = await res.json();
-  dispatch(setHabits(data)); 
+
+  if (Array.isArray(data)) {
+  dispatch(setHabits(data));
+}
+
 };
 
   const MAX_STREAK = 66; // se configuro un maximo de 66 dias para que la barra no se complete al 100 si hay mas de 1 habito
@@ -26,17 +53,14 @@ export default function Home() {
   if (progreso > 66) color = "bg-green-500";
 
 
-useEffect(() => {
-    obtenerHabitos();
-  }, []);
-
   const marcarDone = async (id) => {
   await fetch(`http://localhost:5000/api/habits/${id}/done`, {
     method: "PUT",
     credentials: "include",
   });
 
-  obtenerHabitos(); // recargar lista
+  obtenerHabitos(); // recargar lista de habitos
+
 };
 
 const logout = async () => {
@@ -98,12 +122,12 @@ const logout = async () => {
         ))}
       </div>
  
-            <button
-              onClick={logout} // boton de log out
-              className="bg-red-500 px-3 py-1 rounded mb-4"
-            >
-              Logout
-            </button>
+          <button
+            onClick={logout}
+            className="absolute top-4 right-4 bg-red-500 px-3 py-1 rounded"
+>
+            Logout
+          </button>
 
       
     </main>
