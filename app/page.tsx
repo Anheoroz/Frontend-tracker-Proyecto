@@ -10,6 +10,7 @@ export default function Home() {
 
   const obtenerHabitos = async () => {
   const res = await fetch("http://localhost:5000/api/habits");
+  credentials: "include" 
   const data = await res.json();
   dispatch(setHabits(data)); 
 };
@@ -32,12 +33,25 @@ useEffect(() => {
   const marcarDone = async (id) => {
   await fetch(`http://localhost:5000/api/habits/${id}/done`, {
     method: "PUT",
+    credentials: "include",
   });
 
   obtenerHabitos(); // recargar lista
 };
 
+const logout = async () => {
+  console.log("logout ejecutándose");
+
+  await fetch("http://localhost:5000/api/auth/logout", {
+    method: "POST",
+    credentials: "include",
+  });
+
+  window.location.href = "/login";
+};
+
   return (
+
     <main className="p-6 max-w-xl mx-auto min-h-screen bg-gray-900 text-white">
       <h1 className="text-3xl font-bold mb-4">Mis hábitos</h1>
 
@@ -83,6 +97,15 @@ useEffect(() => {
           </div>
         ))}
       </div>
+ 
+            <button
+              onClick={logout} // boton de log out
+              className="bg-red-500 px-3 py-1 rounded mb-4"
+            >
+              Logout
+            </button>
+
+      
     </main>
   );
 }
