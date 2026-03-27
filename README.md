@@ -208,3 +208,120 @@ redux/
 
 El frontend refleja en tiempo real el estado de los hábitos, permitiendo una interacción directa con la lógica implementada en el backend.
 
+# Frontend – Semana 5
+
+## Descripción
+
+En esta fase se integró el frontend con el sistema de autenticación del backend. Se implementó el login de usuario, manejo de sesión mediante cookies, protección de rutas y redirección automática según el estado de autenticación.
+
+---
+
+## Tecnologías utilizadas
+
+* Next.js
+* React
+* Redux Toolkit
+* Tailwind CSS
+
+---
+
+## Flujo de autenticación
+
+1. El usuario inicia sesión desde `/login`
+2. Se envía una petición al backend
+3. El backend responde con un JWT en una cookie
+4. El navegador guarda la cookie automáticamente
+5. En cada request se envía la cookie usando `credentials: "include"`
+
+---
+
+## Envío de JWT
+
+El frontend no maneja directamente el token.
+
+Se utiliza:
+
+```js
+fetch(url, {
+  credentials: "include"
+});
+```
+
+Esto permite que el navegador envíe automáticamente la cookie en cada petición al backend.
+
+---
+
+## Protección de rutas
+
+En la página principal (`/`) se valida la sesión del usuario:
+
+* Se realiza un fetch a `/api/habits`
+* Si la respuesta es 401 → redirige a `/login`
+* Si es exitosa → se cargan los hábitos
+
+Ejemplo:
+
+```js
+if (!res.ok) {
+  window.location.href = "/login";
+}
+```
+
+---
+
+## Funcionalidades implementadas
+
+### Login
+
+* Formulario de email y contraseña
+* Envío de credenciales al backend
+* Redirección automática al iniciar sesión
+
+---
+
+### Logout
+
+* Petición POST a `/api/auth/logout`
+* Eliminación de cookie en backend
+* Redirección a `/login`
+
+---
+
+### Hábitos
+
+* Obtener hábitos desde backend
+* Marcar hábitos como completados
+* Actualización dinámica de la interfaz
+
+---
+
+## Estructura de páginas
+
+* `/login` → página de autenticación
+* `/` → lista de hábitos (protegida)
+
+---
+
+## Consideraciones
+
+* El frontend depende del backend en `http://localhost:5000`
+* Es necesario configurar CORS con `credentials: true`
+* La sesión se maneja mediante cookies, no localStorage
+
+---
+
+## Ejecución
+
+Instalar dependencias:
+
+```bash
+npm install
+```
+
+Ejecutar aplicación:
+
+```bash
+npm run dev
+```
+
+
