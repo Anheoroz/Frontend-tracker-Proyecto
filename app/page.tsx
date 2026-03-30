@@ -49,8 +49,8 @@ export default function Home() {
 
   let color = "bg-red-500";
 
-  if (progreso > 33) color = "bg-yellow-500"; // la barra pasa a ser amarilla una vez llegado a 33%
-  if (progreso > 66) color = "bg-green-500";
+  if (progreso > 33) color = "bg-yellow-500"; // la barra pasa a ser amarilla una vez llegado a 33% del progreso
+  if (progreso > 66) color = "bg-green-500"; // La barra pasa a ser verde una vez llegado a 66% del progreso
 
 
   const marcarDone = async (id) => {
@@ -76,15 +76,13 @@ const logout = async () => {
 
   return (
 
-    <main className="p-6 max-w-xl mx-auto min-h-screen bg-gray-900 text-white">
+      <main className="p-6 max-w-xl mx-auto min-h-screen bg-gray-900 text-white">
       <h1 className="text-3xl font-bold mb-4">Mis hábitos</h1>
 
-        <div className="mb-6">
-
+          <div className="mb-6">
           <p className="mb-2 font-semibold">Progreso</p>
-
           <div className="w-full bg-gray-300 rounded-full h-4">
-            <div
+          <div
               className={`${color} h-4 rounded-full transition-all duration-500`}
               style={{ width: `${progreso}%` }}
             ></div>
@@ -102,16 +100,14 @@ const logout = async () => {
           <div
             key={habit._id}
             className="bg-gray-800 text-white p-4 rounded-lg flex justify-between items-center">
-
-        <span className="text-white">{habit.name}</span>
-
+          
       <div>
-            <p className="font-semibold">{habit.name}</p>
+            <p className="font-semibold"> {habit.name}</p>
             <p className="text-sm text-green-400">
-              {habit.streak} día{habit.streak !== 1 ? "s" : ""}
+              {habit.streak} día{habit.streak !== 1 ? "s" : ""} cumpliendo hábito
             </p>
-      </div>
 
+      </div>
             <button
                 onClick={() => marcarDone(habit._id)}
                 className="bg-green-500 px-3 py-1 rounded"
@@ -121,7 +117,7 @@ const logout = async () => {
           </div>
         ))}
       </div>
- 
+
           <button
             onClick={logout}
             className="absolute top-4 right-4 bg-red-500 px-3 py-1 rounded"
