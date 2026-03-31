@@ -11,7 +11,7 @@ export default function Home() {
 
  useEffect(() => {
   const checkAuth = async () => {
-    const res = await fetch("http://localhost:5000/api/habits", {
+    const res = await fetch("https://tu-backend.onrender.com/api/habits", {
       credentials: "include",
     });
 
@@ -31,7 +31,7 @@ export default function Home() {
 }, []);
 
   const obtenerHabitos = async () => {
-  const res = await fetch("http://localhost:5000/api/habits", {
+  const res = await fetch("https://tu-backend.onrender.com/api/habits", {
   credentials: "include",
   });
  
@@ -55,7 +55,7 @@ export default function Home() {
 
 
   const marcarDone = async (id) => {
-  await fetch(`http://localhost:5000/api/habits/${id}/done`, {
+  await fetch(`https://tu-backend.onrender.com/api/habits/${id}/done`, {
     method: "PUT",
     credentials: "include",
   });
@@ -68,7 +68,7 @@ export default function Home() {
 const logout = async () => {
   console.log("logout ejecutándose");
 
-  await fetch("http://localhost:5000/api/auth/logout", {
+  await fetch("https://tu-backend.onrender.com/api/auth/logout", {
     method: "POST",
     credentials: "include",
   });
@@ -82,7 +82,7 @@ const crearHabit = async () => {
   if (!newHabit.trim()) return;
 
   try {
-    const res = await fetch("http://localhost:5000/api/habits", {
+    const res = await fetch("https://tu-backend.onrender.com/api/habits", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
