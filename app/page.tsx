@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react"; 
 import { useDispatch, useSelector } from "react-redux";
 import { setHabits } from "../redux/habitsSlice";
 
 export default function Home() {
   const dispatch = useDispatch();
   const habits = useSelector((state: any) => state.habits.habits);
+  const [newHabit, setNewHabit] = useState("");
 
  useEffect(() => {
   const checkAuth = async () => {
@@ -63,6 +64,7 @@ export default function Home() {
 
 };
 
+
 const logout = async () => {
   console.log("logout ejecutándose");
 
@@ -73,6 +75,34 @@ const logout = async () => {
 
   window.location.href = "/login";
 };
+
+// agregando funcion para crear habito en mi frontend
+
+const crearHabit = async () => {
+  if (!newHabit.trim()) return;
+
+  try {
+    const res = await fetch("http://localhost:5000/api/habits", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ name: newHabit }),
+    });
+
+    if (!res.ok) {
+      console.error("Error al crear hábito");
+      return;
+    }
+
+    setNewHabit("");
+    obtenerHabitos(); 
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 
   return (
 
@@ -116,6 +146,27 @@ const logout = async () => {
             </button>
           </div>
         ))}
+      </div>
+
+      <div className="mt-6 bg-gray-800 p-4 rounded-lg">
+      <p className="mb-2 font-semibold">Agregar nuevo hábito</p>
+
+      <div className="flex gap-2">
+        <input
+          type="text"
+          value={newHabit}
+          onChange={(e) => setNewHabit(e.target.value)}
+          placeholder="Ej: Practicar mi Hobbie favorito"
+          className="flex-1 p-2 rounded bg-gray-700 text-white outline-none"
+        />
+
+        <button
+          onClick={crearHabit}
+          className="bg-blue-500 px-4 rounded"
+        >
+        Agregar
+        </button>
+        </div>
       </div>
 
           <button
