@@ -51,10 +51,19 @@ export default function LoginPage() {
 
       <button
         onClick={handleLogin}
-        className="bg-blue-500 px-4 py-2 rounded"
+        className="bg-blue-500 px-4 py-2 rounded mt-4"
       >
         Iniciar sesión
       </button>
+
+      <button
+      onClick={() => window.location.href = "/register"}
+      className="bg-blue-500 px-4 py-2 rounded mt-4"
+      >
+      Registrarse
+      </button>
+
+
     </main>
   );
 }
