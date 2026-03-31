@@ -45,7 +45,7 @@ export default function Home() {
 
   const MAX_STREAK = 66; // se configuro un maximo de 66 dias para que la barra no se complete al 100 si hay mas de 1 habito
   const progreso = habits.length
-  ? (habits.reduce((acc, h) => acc + Math.min(h.streak, MAX_STREAK), 0) / (habits.length * MAX_STREAK)) * 100
+  ? (habits.reduce((acc: number, h: any) => acc + Math.min(h.streak, MAX_STREAK), 0) / (habits.length * MAX_STREAK)) * 100
   : 0;
 
   let color = "bg-red-500";
@@ -54,7 +54,7 @@ export default function Home() {
   if (progreso > 66) color = "bg-green-500"; // La barra pasa a ser verde una vez llegado a 66% del progreso
 
 
-  const marcarDone = async (id) => {
+  const marcarDone = async (id: string) => {
   await fetch(`https://tu-backend.onrender.com/api/habits/${id}/done`, {
     method: "PUT",
     credentials: "include",
